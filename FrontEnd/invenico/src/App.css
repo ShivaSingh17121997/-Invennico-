@@ -5,3 +5,21 @@
   text-align: center;
 }
 
+.navbar {
+  background-color: #212121;
+  padding: 10px;
+  display: flex;
+  text-align: left;
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 20px;
+  padding: "10px";
+}
+
+.navbar-link:hover {
+  color: #ffd700;
+}

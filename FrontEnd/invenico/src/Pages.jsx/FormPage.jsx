@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, MenuItem, Select } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions, MenuItem, Select, Backdrop, CircularProgress } from "@mui/material";
 import axios from "axios";
 
-const FormPage = ({ open, handleClose, user, handleSave }) => {
+const UserForm = ({ handleClose, user, handleSave }) => {
     const [formData, setFormData] = useState(user || {});
+    const [submitting, setSubmitting] = useState(false); // State variable to track form submission
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = () => {
-        axios.post("http://localhost:8090/userDetails", formData) // Corrected POST request
+        setSubmitting(true); // Set submitting to true when submitting the form
+        axios.post("http://localhost:8090/userDetails/post", formData)
             .then((res) => {
                 console.log(res);
                 handleSave(formData);
@@ -18,11 +20,14 @@ const FormPage = ({ open, handleClose, user, handleSave }) => {
             })
             .catch((error) => {
                 console.error("Error:", error);
+            })
+            .finally(() => {
+                setSubmitting(false); // Set submitting back to false after submission completes
             });
     };
 
     return (
-        <Dialog open={open} onClose={handleClose}>
+        <div style={{maxWidth:"600px", margin:"auto"}} open={true} onClose={handleClose} disableEscapeKeyDown={true} BackdropProps={{ onClick: handleClose }}>
             <DialogTitle>{user ? "Edit User" : "Add User"}</DialogTitle>
             <DialogContent>
                 <TextField name="firstName" label="First Name" value={formData.firstName || ""} onChange={handleChange} fullWidth />
@@ -39,8 +44,11 @@ const FormPage = ({ open, handleClose, user, handleSave }) => {
                 <Button onClick={handleClose}>Cancel</Button>
                 <Button onClick={handleSubmit}>Save</Button>
             </DialogActions>
-        </Dialog>
+            <Backdrop open={submitting} style={{ zIndex: 9999 }}>
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        </div>
     );
 };
 
-export default FormPage;
+export default UserForm;

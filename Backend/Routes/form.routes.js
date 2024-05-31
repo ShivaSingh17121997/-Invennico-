@@ -40,4 +40,39 @@ router.get('/get', async (req, res) => {
     }
 });
 
-module.exports = {router};
+
+// DELETE request to delete a user by ID
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
+        if (!deletedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json({ message: "User deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+// PUT request to update a user by ID
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const { firstName, lastName, email, status, phoneNo, address } = req.body;
+        const updatedUser = await UserModel.findByIdAndUpdate(req.params.id, {
+            firstName,
+            lastName,
+            email,
+            status,
+            phoneNo,
+            address
+        }, { new: true }); // Set {new: true} to return the updated user
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        res.json(updatedUser);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = { router };

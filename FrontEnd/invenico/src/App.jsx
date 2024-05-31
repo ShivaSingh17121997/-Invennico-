@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
-import Home from './Pages.jsx/Home'
-import FormPage from './Pages.jsx/FormPage'
+// import Home from './Pages.jsx/Home'
+// import FormPage from './Pages.jsx/FormPage'
+import Navbar from './Components/Navbar'
+import AllRoutes from './Pages.jsx/AllRoutes'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <Home />
-      < FormPage/>
-    </>
+    <div>
+      <Navbar />
+      <AllRoutes />
+
+      
+    </div>
   )
 }
 

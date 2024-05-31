@@ -14,6 +14,18 @@ const Home = () => {
             })
     }, [])
 
+
+    // Delete function
+    const handleDelete = (id) => {
+        axios.delete(`http://localhost:8090/userDetails/delete/${id}`)
+            .then((res) => {
+                console.log(res.data)
+                setUsers(res.data)
+            })
+
+
+    }
+
     return (
         <TableContainer component={Paper}>
             <Table>
