@@ -24,10 +24,11 @@ const UserForm = ({ handleClose, user, handleSave }) => {
             .finally(() => {
                 setSubmitting(false); // Set submitting back to false after submission completes
             });
+            setFormData("")
     };
 
     return (
-        <div style={{maxWidth:"600px", margin:"auto"}} open={true} onClose={handleClose} disableEscapeKeyDown={true} BackdropProps={{ onClick: handleClose }}>
+        <div style={{maxWidth:"600px", margin:"auto"}} open={true} onClose={handleClose}  >
             <DialogTitle>{user ? "Edit User" : "Add User"}</DialogTitle>
             <DialogContent>
                 <TextField name="firstName" label="First Name" value={formData.firstName || ""} onChange={handleChange} fullWidth />
