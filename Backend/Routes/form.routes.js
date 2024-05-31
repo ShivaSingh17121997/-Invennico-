@@ -26,11 +26,11 @@ router.post('/post', async (req, res) => {
 
         res.status(201).json(savedUser); // Return the saved user as response
     } catch (error) {
-        res.status(500).json({ error: error.message }); // Handle any errors
+        res.status(500).json({ error: error.message }); 
     }
 });
 
-// GET request to fetch all users
+// GET request 
 router.get('/get', async (req, res) => {
     try {
         const users = await UserModel.find();
@@ -41,7 +41,7 @@ router.get('/get', async (req, res) => {
 });
 
 
-// DELETE request to delete a user by ID
+// DELETE request
 router.delete('/delete/:id', async (req, res) => {
     try {
         const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
@@ -54,7 +54,7 @@ router.delete('/delete/:id', async (req, res) => {
     }
 });
 
-// PUT request to update a user by ID
+// PUT request to update
 router.put('/edit/:id', async (req, res) => {
     try {
         const { firstName, lastName, email, status, phoneNo, address } = req.body;
@@ -65,7 +65,7 @@ router.put('/edit/:id', async (req, res) => {
             status,
             phoneNo,
             address
-        }, { new: true }); // Set {new: true} to return the updated user
+        }, { new: true }); // 
         if (!updatedUser) {
             return res.status(404).json({ message: "User not found" });
         }

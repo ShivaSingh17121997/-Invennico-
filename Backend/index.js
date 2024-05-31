@@ -4,12 +4,12 @@ const { connection } = require('./db.js');
 const { router } = require('./Routes/form.routes.js');
 
 const app = express();
-app.use(cors()); // Enable CORS
+app.use(cors()); 
 app.use(express.json());
 
-app.use("/userDetails", router); // Use the router middleware for the specified route
+app.use("/userDetails", router); 
 
-const port = 8090; // Corrected port definition
+const port = 8090; 
 
 app.listen(port, async () => {
     try {
