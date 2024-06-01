@@ -12,7 +12,7 @@ const UserForm = ({ handleClose, user, handleSave }) => {
 
     const handleSubmit = () => {
         setSubmitting(true); // Set submitting to true when submitting the form
-        axios.post("http://localhost:8090/userDetails/post", formData)
+        axios.post("https://invencco-backend-9.onrender.com/userDetails/post", formData)
             .then((res) => {
                 console.log(res);
                 handleSave(formData);
@@ -24,11 +24,11 @@ const UserForm = ({ handleClose, user, handleSave }) => {
             .finally(() => {
                 setSubmitting(false); // Set submitting back to false after submission completes
             });
-            setFormData("")
+        setFormData("")
     };
 
     return (
-        <div style={{maxWidth:"600px", margin:"auto"}} open={true} onClose={handleClose}  >
+        <div style={{ maxWidth: "600px", margin: "auto" }} open={true} onClose={handleClose}  >
             <DialogTitle>{user ? "Edit User" : "Add User"}</DialogTitle>
             <DialogContent>
                 <TextField name="firstName" label="First Name" value={formData.firstName || ""} onChange={handleChange} fullWidth />

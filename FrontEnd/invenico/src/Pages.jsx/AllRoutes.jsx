@@ -22,8 +22,7 @@ export default function AllRoutes() {
                     </PrivateRoute>} />
 
 
-                <Route path="/singlesuser" element={<SinglueUserPage />} />
-
+                <Route path="/singlesuser/:id" element={<SinglueUserPage />} />
                 <Route path="/login" element={<Login />} />
 
 

@@ -1,13 +1,65 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isSingupActive, serIsSignUpActive] = useState(true)
+
+
+
+  const handleMethodChange = () => {
+    serIsSignUpActive(!isSingupActive);
+  }
+
+  // signup
+  const handleSignup = () => {
+    createsignin(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+      })
+
+
+  }
+
+
+  // login
+
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+      })
+
+  }
+
+
+
+
+
+
+
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here
+
     console.log('Email:', email);
     console.log('Password:', password);
   };
@@ -22,9 +74,15 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h5">
-          Login
-        </Typography>
+        {isSingupActive && <Typography component="h1" variant="h5">
+          Login</Typography>}
+
+        {!isSingupActive && <Typography component="h1" variant="h5">
+          Signup
+        </Typography>}
+
+
+
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             margin="normal"
@@ -50,14 +108,32 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button
+          {isSingupActive && <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={handleLogin}
           >
-            Sign In
-          </Button>
+            Login
+          </Button>}
+
+          {!isSingupActive && <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleSignup}
+          >
+            Signup
+          </Button>}
+
+
+
+          {isSingupActive && <a onClick={handleMethodChange} > create an account</a>}
+
+          {!isSingupActive && <a onClick={handleMethodChange} >Login</a>}
+
         </Box>
       </Box>
     </Container>

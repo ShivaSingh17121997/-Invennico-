@@ -1,6 +1,5 @@
-// src/components/UserTable.jsx
 import React, { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from "axios";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -8,28 +7,28 @@ const Home = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:8090/userDetails/get")
+        axios.get("https://invencco-backend-9.onrender.com/userDetails/get")
             .then((res) => {
-                console.log(res.data)
-                setUsers(res.data)
+                console.log(res.data);
+                setUsers(res.data);
             })
-    }, [])
-
+            .catch((error) => {
+                console.error("Error fetching users:", error);
+            });
+    }, []);
 
     // Delete function
     const handleDelete = (id) => {
-        console.log(id, "id")
-        axios.delete(`http://localhost:8090/userDetails/delete/${id}`)
+        console.log(id, "id");
+        axios.delete(`https://invencco-backend-9.onrender.com/userDetails/delete/${id}`)
             .then((res) => {
-                console.log(res.data)
-                setUsers(res.data)
+                console.log(res.data);
+                setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
             })
-
-
-    }
-
-
-
+            .catch((error) => {
+                console.error("Error deleting user:", error);
+            });
+    };
 
     return (
         <TableContainer component={Paper}>
@@ -46,15 +45,15 @@ const Home = () => {
                 </TableHead>
                 <TableBody>
                     {users.map((user, index) => (
-                        <TableRow key={index}>
+                        <TableRow key={user._id}>
                             <TableCell>{index + 1}</TableCell>
                             <TableCell>{user.firstName}</TableCell>
                             <TableCell>{user.lastName}</TableCell>
                             <TableCell>{user.email}</TableCell>
                             <TableCell>{user.status}</TableCell>
                             <TableCell>
-                                <Link to="/singlesuser"  >
-                                    <Button  >View</Button>
+                                <Link to={`/singlesuser/${user._id}`}>
+                                    <Button>View</Button>
                                 </Link>
                                 <Button onClick={() => handleEdit(user)}>Edit</Button>
                                 <Button onClick={() => handleDelete(user._id)}>Delete</Button>
