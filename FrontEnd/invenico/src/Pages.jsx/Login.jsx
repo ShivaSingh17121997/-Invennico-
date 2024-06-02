@@ -3,11 +3,14 @@ import { Container, TextField, Button, Typography, Box } from '@mui/material';
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSingupActive, serIsSignUpActive] = useState(true)
+
+  const navigate = useNavigate();
 
 
 
@@ -17,10 +20,11 @@ const Login = () => {
 
   // signup
   const handleSignup = () => {
-    createsignin(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user)
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -39,6 +43,11 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user)
+        console.log("login successfull")
+        console.log("token", user.accessToken)
+        if (user.accessToken) {
+          navigate("/")
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
