@@ -28,12 +28,13 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        setEmail(""); // Fix: Clear email state
+        setPassword("");
         toast.success("Signup successful!", {
           position: "top-right",
         });
 
-        setEmail(""); // Fix: Clear email state
-        setPassword("");
+
       })
       .catch((error) => {
         const errorMessage = error.message;

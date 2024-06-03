@@ -11,10 +11,16 @@ export default function AuthContextProvider({ children }) {
         setToken(token)
     }
 
+
+    const logout = () => {
+        setIsAuth(false);
+        setToken(null)
+    }
+
     console.log(isAuth, token)
     return (
         <div>
-            <AuthContexts.Provider value={{ isAuth, login }} >
+            <AuthContexts.Provider value={{ isAuth, login, logout }} >
                 {children}
             </AuthContexts.Provider>
         </div>
