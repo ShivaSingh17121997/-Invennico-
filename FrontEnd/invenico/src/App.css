@@ -15,11 +15,295 @@
 .navbar-link {
   color: white;
   text-decoration: none;
-  margin-right: 20px;
+  margin-right: 5px 20px;
   font-size: 20px;
   padding: "10px";
 }
 
 .navbar-link:hover {
   color: #ffd700;
+}
+
+
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+  padding: 14px 20px;
+}
+
+.navbar-link:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar-right {
+  margin-left: auto;
+}
+
+
+/* // form */
+
+.dialog {
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  animation: fadeIn 0.3s;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  background-color: #e5d3ff;
+  color: #fff;
+}
+
+.dialog-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-content {
+  padding: 16px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #6200ea;
+  outline: none;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid #eee;
+  background-color: #f5f5f5;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #fff;
+}
+
+.button:not(:disabled) {
+  background-color: #6200ea;
+  color: #fff;
+}
+
+.button[type="button"] {
+  background-color: #ff4081;
+  color: #fff;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/* validation */
+
+.dialog {
+  max-width: 600px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+  animation: fadeIn 0.3s;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  background-color: #6200ea;
+  color: #fff;
+}
+
+.dialog-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-content {
+  padding: 16px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #6200ea;
+  outline: none;
+}
+
+.form-group .error {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 16px;
+  border-top: 1px solid #eee;
+  background-color: #f5f5f5;
+}
+
+.button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #fff;
+}
+
+.button:not(:disabled) {
+  background-color: #6200ea;
+  color: #fff;
+}
+
+.button[type="button"] {
+  background-color: #ff4081;
+  color: #fff;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

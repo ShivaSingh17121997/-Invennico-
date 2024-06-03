@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Link as MuiLink } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -8,69 +10,63 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSingupActive, serIsSignUpActive] = useState(true)
+  const [isSignupActive, setIsSignupActive] = useState(true);
 
   const navigate = useNavigate();
 
-
-
   const handleMethodChange = () => {
-    serIsSignUpActive(!isSingupActive);
-  }
+    setIsSignupActive(!isSignupActive);
+  };
 
   // signup
-  const handleSignup = () => {
+  const handleSignup = (e) => {
+    e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user)
+        console.log(user);
+        toast.success("Signup successful!", {
+          position: "top-right",
+        });
 
+        navigate('/');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
-
-
-  }
-
+        console.log(errorCode, errorMessage);
+        toast.error(`Signup failed: ${errorMessage}`, {
+          position: "top-right",
+        });
+      });
+  };
 
   // login
-
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user)
-        console.log("login successfull")
-        console.log("token", user.accessToken)
+        console.log(user);
+        console.log("Login successful");
+        console.log("Token", user.accessToken);
+
+        toast.success("Login successful!", {
+          position: "top-right",
+        });
+
         if (user.accessToken) {
-          navigate("/")
+          navigate("/");
         }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-      })
-
-  }
-
-
-
-
-
-
-
-
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log('Email:', email);
-    console.log('Password:', password);
+        console.log(errorCode, errorMessage);
+        toast.error(`Login failed: ${errorMessage}`, {
+          position: "top-right",
+        });
+      });
   };
 
   return (
@@ -83,16 +79,11 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        {isSingupActive && <Typography component="h1" variant="h5">
-          Login</Typography>}
+        <Typography component="h1" variant="h5">
+          {isSignupActive ? 'Signup' : 'Login'}
+        </Typography>
 
-        {!isSingupActive && <Typography component="h1" variant="h5">
-          Signup
-        </Typography>}
-
-
-
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        <Box component="form" sx={{ mt: 1 }} onSubmit={isSignupActive ? handleSignup : handleLogin}>
           <TextField
             margin="normal"
             required
@@ -117,34 +108,21 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {isSingupActive && <Button
+          <Button
             type="submit"
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={handleLogin}
           >
-            Login
-          </Button>}
+            {isSignupActive ? 'Signup' : 'Login'}
+          </Button>
 
-          {!isSingupActive && <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-            onClick={handleSignup}
-          >
-            Signup
-          </Button>}
-
-
-
-          {isSingupActive && <a onClick={handleMethodChange} > create an account</a>}
-
-          {!isSingupActive && <a onClick={handleMethodChange} >Login</a>}
-
+          <MuiLink component="button" variant="body2" onClick={handleMethodChange}>
+            {isSignupActive ? 'Already have an account? Login' : 'Don’t have an account? Sign Up'}
+          </MuiLink>
         </Box>
       </Box>
+      <ToastContainer />
     </Container>
   );
 };
