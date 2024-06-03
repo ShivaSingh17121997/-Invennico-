@@ -3,6 +3,9 @@ import axios from "axios";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
+import { ToastContainer, toast } from 'react-toastify';
+
+
 const Home = () => {
     const [users, setUsers] = useState([]);
 
@@ -24,6 +27,10 @@ const Home = () => {
             .then((res) => {
                 console.log(res.data);
                 setUsers((prevUsers) => prevUsers.filter((user) => user._id !== id));
+
+                toast.success("Data Deleted successfuly!", {
+                    position: "top-right",
+                });
             })
             .catch((error) => {
                 console.error("Error deleting user:", error);

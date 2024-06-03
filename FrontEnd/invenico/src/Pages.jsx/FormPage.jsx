@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
+
+
 const UserForm = ({ handleClose, user, handleSave }) => {
     const [formData, setFormData] = useState(user || {});
     const [errors, setErrors] = useState({});
@@ -40,8 +44,12 @@ const UserForm = ({ handleClose, user, handleSave }) => {
         axios.post("https://invencco-backend-9.onrender.com/userDetails/post", formData)
             .then((res) => {
                 console.log(res);
-                handleSave(formData);
+               
                 handleClose();
+
+                toast.success("Data Posted successfuly!", {
+                    position: "top-right",
+                });
             })
             .catch((error) => {
                 console.error("Error:", error);
@@ -137,6 +145,7 @@ const UserForm = ({ handleClose, user, handleSave }) => {
                     </button>
                 </div>
             </form>
+            {/* <ToastContainer /> */}
         </div>
     );
 };

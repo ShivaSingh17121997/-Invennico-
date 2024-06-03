@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Link as MuiLink } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-toastify/dist/ReactToastify.css';
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
@@ -128,7 +128,7 @@ const Login = () => {
           </MuiLink>
         </Box>
       </Box>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </Container>
   );
 };
