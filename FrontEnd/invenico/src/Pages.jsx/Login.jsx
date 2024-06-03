@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Container, TextField, Button, Typography, Box, Link as MuiLink } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,11 +6,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
+import { AuthContexts } from '../Context/AuthContextProvider';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSignupActive, setIsSignupActive] = useState(true);
+
+  const { login } = useContext(AuthContexts);
 
   const navigate = useNavigate();
 
@@ -29,12 +32,12 @@ const Login = () => {
           position: "top-right",
         });
 
-        navigate('/');
+        setEmail(""); // Fix: Clear email state
+        setPassword("");
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error("Signup failed:", errorMessage);
         toast.error(`Signup failed: ${errorMessage}`, {
           position: "top-right",
         });
@@ -49,20 +52,22 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         console.log("Login successful");
-        console.log("Token", user.accessToken);
+
+        login(user.accessToken); // Fix: Use appropriate method to set token if needed
 
         toast.success("Login successful!", {
           position: "top-right",
         });
 
-        if (user.accessToken) {
-          navigate("/");
-        }
+
+        setEmail(""); // Fix: Clear email state
+        setPassword("");
+
+        navigate("/"); // Fix: Redirect after setting email and password states
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.error("Login failed:", errorMessage);
         toast.error(`Login failed: ${errorMessage}`, {
           position: "top-right",
         });

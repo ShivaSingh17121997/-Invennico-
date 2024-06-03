@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function SingleUserPage() {
-    const [data, setData] = useState(null); // Initialize with null for a single user
+    const [data, setData] = useState(null);
     const { id } = useParams();
     console.log(id);
 
@@ -18,16 +18,16 @@ export default function SingleUserPage() {
                     console.error("Error fetching user:", error);
                 });
         }
-    }, [id]); // Add id to the dependency array
+    }, [id]);
 
     if (!data) {
-        return <div>Loading...</div>;
+        return <div className="loading">Loading...</div>;
     }
 
     return (
-        <div>
-            <h1>Single User Page</h1>
-            <div>
+        <div className="user-container">
+            <h1 className="title">User Details</h1>
+            <div className="user-card">
                 <p><strong>First Name:</strong> {data.firstName}</p>
                 <p><strong>Last Name:</strong> {data.lastName}</p>
                 <p><strong>Email:</strong> {data.email}</p>
